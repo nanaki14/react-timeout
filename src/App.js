@@ -2,7 +2,6 @@ import "@babel/polyfill";
 import React from "react";
 import { createResource, createCache } from "simple-cache-provider";
 
-// cast any for typescript
 const Timeout = React.Timeout;
 const AsyncMode = React.unstable_AsyncMode;
 
@@ -10,12 +9,14 @@ const cache = createCache();
 const hn = createResource(async (id) => {
   const url = `https://hacker-news.firebaseio.com/v0/item/${id}.json`;
   const res = await fetch(url);
-  console.log(url)
-  await new Promise(resolve => setTimeout(resolve, 2000));
+  console.log(res)
+  await new Promise(resolve => setTimeout(resolve, 200));
   return res.json();
 });
 
 const HNStory = (props) => {
+  console.log(props)
+  console.log(cache)
   const data = hn.read(cache, props.id);
   return (
     <p>
