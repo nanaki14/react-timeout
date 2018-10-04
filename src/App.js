@@ -1,28 +1,55 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "@babel/polyfill";
+import React from "react";
+import { createResource, createCache } from "simple-cache-provider";
 
-class App extends Component {
+// cast any for typescript
+const Timeout = React.Timeout;
+const AsyncMode = React.unstable_AsyncMode;
+
+const cache = createCache();
+const hn = createResource(async (id) => {
+  const url = `https://hacker-news.firebaseio.com/v0/item/${id}.json`;
+  const res = await fetch(url);
+  console.log(url)
+  await new Promise(resolve => setTimeout(resolve, 2000));
+  return res.json();
+});
+
+const HNStory = (props) => {
+  const data = hn.read(cache, props.id);
+  return (
+    <p>
+      {data.title}: {data.url}
+    </p>
+  );
+};
+
+class App extends React.PureComponent {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
+      <AsyncMode>
+        <div>
+          <h1>Try suspense</h1>
+          <button
+            onClick={() => {
+              this.forceUpdate();
+            }}
           >
-            Learn React
-          </a>
-        </header>
-      </div>
+            reload
+          </button>
+          <hr />
+          <Timeout ms={200}>
+            {(didTimeout) => {
+              if (didTimeout) {
+                return <span>The content is still loading :(</span>;
+              }
+              return <HNStory id={8863} />;
+            }}
+          </Timeout>
+        </div>
+      </AsyncMode>
     );
   }
 }
 
-export default App;
+export default App

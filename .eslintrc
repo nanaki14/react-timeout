@@ -1,26 +1,31 @@
 {
   "parserOptions": {
     "ecmaVersion": 9,
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true,
-      "jsx": true
-    },
+    "ecmaFeatures": {},
     "sourceType": "module"
   },
   "env": {
     "es6": true,
     "node": true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended"
-  ],
+  "extends": ["plugin:prettier/recommended", "react-app", "standard"],
   "parser": "babel-eslint",
   "plugins": [
+    "prettier",
     "import",
     "node",
     "promise",
     "standard",
-    "react"
-  ]
+    "react",
+    "jsx-a11y"
+  ],
+  "rules": {
+    "prettier/prettier": "error",
+    "react/jsx-uses-react": 1,
+    "react/jsx-uses-vars": 1,
+    "no-console": "warn",
+    "jsx-a11y/href-no-hash": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "space-before-function-paren": 0
+  }
 }

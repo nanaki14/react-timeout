@@ -3,15 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "react-scripts": "2.0.4"
+    "@babel/polyfill": "^7.0.0",
+    "react": "^16.4.0-alpha.0911da3",
+    "react-dom": "^16.4.0-alpha.0911da3",
+    "react-scripts": "2.0.4",
+    "simple-cache-provider": "^0.10.0",
+    "styled-components": "^3.4.9"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "format": "prettier-eslint --write \"./**/*.js\" --ignore \"./node_modules/**\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -23,10 +27,12 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "eslint-config-react-app": "^3.0.3",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-react": "^7.11.1",
     "eslint-plugin-standard": "^4.0.0",
